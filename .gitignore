@@ -1,0 +1,4 @@
+data/
+reports/
+config.toml
+__pycache__/

@@ -1,0 +1,35 @@
+# Copy to config.toml and adjust. Run `python -m futures_mm discover "nba champion"` to
+# confirm the identifiers below; they change each season.
+
+[league]
+league = "nba"                                        # "nba" or "nfl" (team name tables)
+kalshi_series = "KXNBA"                               # Kalshi series ticker for the championship
+polymarket_event_slug = "2027-nba-champion"           # Polymarket event slug
+odds_sport_key = "basketball_nba_championship_winner" # The Odds API outright key
+
+[recorder]
+db_path = "data/nba.sqlite"
+book_interval_s = 30       # order book snapshots
+trade_interval_s = 60      # trade polling
+odds_interval_s = 10800    # sportsbook odds; each call costs len(regions) Odds API credits
+market_refresh_s = 3600
+book_depth = 10
+odds_regions = "us,eu"     # "eu" includes Pinnacle and Betfair exchange
+
+[fair_value]
+devig_method = "shin"      # multiplicative | power | shin (all three are stored)
+default_book_weight = 1.0
+
+[fair_value.book_weights]  # sharper books count more; 0 excludes a book
+pinnacle = 3.0
+betfair_ex_eu = 2.0
+betfair_ex_uk = 2.0
+circasports = 2.0
+
+[fees]
+kalshi_taker_fee_rate = 0.07  # fee = rate * P * (1-P) per contract; check current schedule
+poly_taker_fee_rate = 0.0     # set if the market charges taker fees
+
+[team_aliases]
+# "Name as a venue shows it" = "Canonical Full Name"
+# "LA Lakers" = "Los Angeles Lakers"
